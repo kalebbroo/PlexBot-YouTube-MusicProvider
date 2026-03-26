@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>PlexBot-YouTube-MusicProvider</AssemblyName>
+	</PropertyGroup>
+
+	<Import Project="../../PlexBot.extension.props" />
+
+</Project>
