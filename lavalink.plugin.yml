@@ -1,0 +1,29 @@
+# Lavalink plugin fragment for YouTube Music Provider extension.
+# Automatically merged into lavalink.application.yml by generate-lavalink-config.sh.
+
+# Plugin Maven dependency (appended to lavalink.plugins[] array)
+plugin:
+  dependency: "dev.lavalink.youtube:youtube-plugin:1.18.0"
+  snapshot: false
+
+# Plugin configuration (deep-merged under top-level 'plugins' key)
+pluginConfig:
+  youtube:
+    enabled: true
+    allowSearch: true
+    allowDirectVideoIds: true
+    allowDirectPlaylistIds: true
+    clients:
+      - TVHTML5_SIMPLY
+      - MUSIC
+      - ANDROID_VR
+      - WEB
+      - WEBEMBEDDED
+    oauth:
+      enabled: true
+      refreshToken: ""
+
+# Source overrides (merged into lavalink.server.sources)
+# Disable built-in YouTube source — the plugin replaces it
+sources:
+  youtube: false
