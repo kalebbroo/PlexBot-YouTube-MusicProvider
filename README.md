@@ -127,7 +127,8 @@ To update:
 
 | Symptom | What to check |
 |---|---|
-| `/search mode:youtube` finds nothing, or shows "Search Error" or "Playback Error" | The bot's message is generic for now. The details are in the logs. Run the Verify steps. If `youtube-plugin` is listed, check `docker logs LavaLink` for errors from the YouTube source, and check `Install/start.sh --logs` for `[YouTube]` lines. If the built-in source is still on, see the row below. |
+| `/search mode:youtube` shows "YouTube lookup failed" | Lavalink could not load from YouTube. Run the Verify steps. If `youtube-plugin` is not listed, install or fix the plugin (see the rows below). If it is listed, check `docker logs LavaLink` for errors from the YouTube source, and check `Install/start.sh --logs` for `[YouTube]` lines. |
+| `/search mode:youtube` finds nothing | YouTube returned no matches for that query. Try another search, and run the Verify steps if every search returns nothing. |
 | Error says YouTube wants you to sign in to confirm you're not a bot | YouTube flagged the requests. Turn on OAuth with a burner account (see Optional OAuth). |
 | `/v4/info` does not list `youtube-plugin` | Lavalink did not load the plugin. Check that the extension folder is in `Extensions/` and does not end in `.disabled`. Run `Install/start.sh --build`. Check that `Install/Docker/lavalink.application.yml` lists the `youtube-plugin` dependency. Check `docker logs LavaLink` for download errors, because the container needs internet access at startup. |
 | The built-in YouTube source is still enabled | In `Install/Docker/lavalink.application.yml`, `lavalink.server.sources.youtube` must be `false`. If it is `true`, the config was not regenerated. Run `Install/start.sh --build`. |
