@@ -25,6 +25,7 @@ public class YouTubeExtension : Extension
     protected override Task<bool> OnInitializeAsync(IServiceProvider services)
     {
         Logs.Info($"{Name} v{Version} initialized — YouTube search and URL playback available");
+        YouTubeMusicProvider.StartPluginCheckInBackground();
         return Task.FromResult(true);
     }
 }
