@@ -154,6 +154,22 @@ public class YouTubeMusicProvider(IAudioService audioService) : IMusicProvider
     public Task<Playlist?> GetPlaylistDetailsAsync(string playlistKey, CancellationToken ct = default) =>
         Task.FromResult<Playlist?>(null);
 
+    /// <summary>Explains a YouTube stream that YouTube refused, with a link to the OAuth setup steps. Other failures get
+    /// no explanation, so the bot only logs them.</summary>
+    public string? DescribePlaybackFailure(Track track, string? errorMessage)
+    {
+        if (string.IsNullOrEmpty(errorMessage))
+            return null;
+
+        bool refusedByYouTube = errorMessage.Contains("Suspicious", StringComparison.OrdinalIgnoreCase)
+            || errorMessage.Contains("All clients failed", StringComparison.OrdinalIgnoreCase)
+            || errorMessage.Contains("sign in", StringComparison.OrdinalIgnoreCase);
+        return refusedByYouTube
+            ? "YouTube refused this stream from the server. Turn on OAuth with a burner account to fix it: " +
+              "[How to set up YouTube with OAuth](https://github.com/kalebbroo/PlexBot-YouTube-MusicProvider#set-up-oauth-step-by-step)."
+            : null;
+    }
+
     /// <summary>Creates a normalized Track model from a Lavalink track</summary>
     private static Track CreateTrackFromLavalink(LavalinkTrack lt, string? overrideUrl = null)
     {
