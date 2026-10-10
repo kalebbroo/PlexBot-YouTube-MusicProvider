@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="650" viewBox="0 0 800 650" role="img" aria-labelledby="flow-title flow-desc">
+  <title id="flow-title">OAuth setup flow</title>
+  <desc id="flow-desc">Six steps in order: turn on OAuth, restart Lavalink, sign in with the burner account at google.com/device, copy the refresh token, restart Lavalink, and test in Discord.</desc>
+  <rect x="0" y="0" width="800" height="650" fill="#ffffff"/>
+  <text x="400" y="40" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1f2328">OAuth setup, in order</text>
+
+  <rect x="120" y="64" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="96" r="17" fill="#0969da"/>
+  <text x="156" y="102" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">1</text>
+  <text x="196" y="93" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Turn on OAuth</text>
+  <text x="196" y="116" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">In lavalink.plugin.yml: enabled: true, TV first</text>
+  <line x1="400" y1="131" x2="400" y2="144" stroke="#57606a" stroke-width="2"/>
+  <polygon points="394,144 406,144 400,151" fill="#57606a"/>
+
+  <rect x="120" y="154" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="186" r="17" fill="#0969da"/>
+  <text x="156" y="192" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">2</text>
+  <text x="196" y="183" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Restart Lavalink</text>
+  <text x="196" y="206" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">Run Install/start.sh, then docker restart LavaLink</text>
+  <line x1="400" y1="221" x2="400" y2="234" stroke="#57606a" stroke-width="2"/>
+  <polygon points="394,234 406,234 400,241" fill="#57606a"/>
+
+  <rect x="120" y="244" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="276" r="17" fill="#0969da"/>
+  <text x="156" y="282" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">3</text>
+  <text x="196" y="273" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Sign in with the burner account</text>
+  <text x="196" y="296" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">Open google.com/device and enter the code from the log</text>
+  <line x1="400" y1="311" x2="400" y2="324" stroke="#57606a" stroke-width="2"/>
+  <polygon points="394,324 406,324 400,331" fill="#57606a"/>
+
+  <rect x="120" y="334" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="366" r="17" fill="#0969da"/>
+  <text x="156" y="372" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">4</text>
+  <text x="196" y="363" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Copy the refresh token</text>
+  <text x="196" y="386" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">Paste it into refreshToken in lavalink.plugin.yml</text>
+  <line x1="400" y1="401" x2="400" y2="414" stroke="#57606a" stroke-width="2"/>
+  <polygon points="394,414 406,414 400,421" fill="#57606a"/>
+
+  <rect x="120" y="424" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="456" r="17" fill="#0969da"/>
+  <text x="156" y="462" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">5</text>
+  <text x="196" y="453" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Restart Lavalink again</text>
+  <text x="196" y="476" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">Run Install/start.sh, then docker restart LavaLink</text>
+  <line x1="400" y1="491" x2="400" y2="504" stroke="#57606a" stroke-width="2"/>
+  <polygon points="394,504 406,504 400,511" fill="#57606a"/>
+
+  <rect x="120" y="514" width="560" height="64" rx="12" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+  <circle cx="156" cy="546" r="17" fill="#0969da"/>
+  <text x="156" y="552" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">6</text>
+  <text x="196" y="543" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#0a3069">Test in Discord</text>
+  <text x="196" y="566" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#24292f">Run /search mode:YouTube, play a track, check the log</text>
+
+  <text x="400" y="620" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#57606a">Placeholders only. Never share a real sign-in code or token.</text>
+</svg>

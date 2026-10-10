@@ -3,8 +3,9 @@
 #   plugin        -> appended to lavalink.plugins[]
 #   pluginConfig  -> merged under the top-level plugins: key
 #   sources       -> merged into lavalink.server.sources
-# After editing, run Install/start.sh --build. Only --build recreates the Lavalink container.
-# The README explains each option, the install and verify steps, and optional OAuth.
+# After editing this file, run Install/start.sh, then docker restart LavaLink. After a change to the extension's code,
+# run Install/start.sh --build.
+# The README explains each option, the install and verify steps, and OAuth setup.
 
 # Plugin dependency. The version is pinned here; see the README "Updating" section.
 plugin:
@@ -25,9 +26,11 @@ pluginConfig:
       - ANDROID_VR
       - WEB
       - WEBEMBEDDED
+    # TV is not in this list. It is the only client that uses OAuth, and only for playback. When OAuth is on,
+    # add TV at the top of the list (README section "Set up OAuth step by step", step 3).
     # OAuth is off by default. With enabled: true and no refresh token, Lavalink starts a Google
-    # sign-in on every boot, and YouTube can terminate the account used. Read the README
-    # "Optional OAuth" section, and use a burner account, before you turn it on.
+    # sign-in on every boot, and YouTube can terminate the account used. Read the README section
+    # "Set up OAuth step by step", and use a burner account, before you turn it on.
     oauth:
       enabled: false
       # Paste a refresh token here to skip the sign-in flow. It works like a password: never commit it.
