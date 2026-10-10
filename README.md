@@ -14,7 +14,7 @@ If some YouTube tracks fail to play, follow [Set up OAuth step by step](#set-up-
 
 This extension adds YouTube to PlexBot as a music source. It plays YouTube through Lavalink's youtube-plugin.
 
-- **Search.** `/search mode:youtube` searches YouTube and lists the results.
+- **Search.** `/search mode:YouTube` searches YouTube and lists the results.
 - **Links.** `/play` accepts a YouTube link to a single video or a playlist, and PlexBot queues the tracks.
 
 The extension does not play audio itself. It asks Lavalink, the audio server PlexBot already uses, to look up YouTube.
@@ -59,7 +59,7 @@ Use `--build` when you first install this extension. For a config-only change, s
 
    The `plugins` list in the reply should include an entry named `youtube-plugin`.
 
-2. Check search. In Discord, run `/search mode:youtube query:<anything>`. You should get a list of results, not "No Results" or "Search Error".
+2. Check search. In Discord, run `/search mode:YouTube query:<anything>`. You should get a list of results, not "No Results" or "Search Error".
 
 3. Check the startup log. `Install/start.sh --logs` should not show a warning that `youtube-plugin` is not loaded. The bot checks Lavalink at startup, trying up to five times, 30 seconds apart, so give it a couple of minutes.
 
@@ -91,7 +91,7 @@ The option descriptions follow the 1.18.2 README of youtube-source:
 | Option | What it does |
 |---|---|
 | `enabled` | Whether this source can be used. |
-| `allowSearch` | Whether "ytsearch:" and "ytmsearch:" can be used. `/search mode:youtube` needs this set to `true`. |
+| `allowSearch` | Whether "ytsearch:" and "ytmsearch:" can be used. `/search mode:YouTube` needs this set to `true`. |
 | `allowDirectVideoIds` | Whether just video IDs can match. If false, only complete URLs will be loaded. |
 | `allowDirectPlaylistIds` | Whether just playlist IDs can match. If false, only complete URLs will be loaded. |
 | `clients` | The clients to use for track loading. Clients are queried in the order they are given, so the first client is queried first and so on. TV is last by default. It is the only client that uses OAuth, so move it to the top when OAuth is on. The client table is in the [youtube-source README](https://github.com/lavalink-devs/youtube-source/blob/1.18.2/README.md#available-clients). |
@@ -183,7 +183,7 @@ OAUTH INTEGRATION: To give youtube-source access to your account, go to https://
 
 3. Open https://www.google.com/device in a browser that is signed in to the burner account. A private window or a separate browser profile keeps your main account out of this.
 4. Enter the code from the banner, and approve the request.
-5. The code expires after a few minutes. If it does, the log shows `OAUTH INTEGRATION: The device token has expired. OAuth integration has been canceled.` Run `docker restart LavaLink` to get a new code, then repeat steps 1 to 4.
+5. Codes expire. If yours does, the log shows `OAUTH INTEGRATION: The device token has expired. OAuth integration has been canceled.` Run `docker restart LavaLink` to get a new code, then repeat steps 1 to 4.
 
 The banner should appear, because this stack's Lavalink log level is INFO (`Install/Docker/lavalink.base.yml`). If it does not, the youtube-source README says to set the log level of `dev.lavalink.youtube.http.YoutubeOauth2Handler` to INFO.
 
@@ -260,12 +260,12 @@ To update:
 
 | Symptom | What to check |
 |---|---|
-| `/search mode:youtube` shows "YouTube lookup failed" | Lavalink could not load from YouTube. Run the Verify steps. If `youtube-plugin` is not listed, install or fix the plugin (see the rows below). If it is listed, check `docker logs LavaLink` for errors from the YouTube source, and check `Install/start.sh --logs` for `[YouTube]` lines. |
-| `/search mode:youtube` finds nothing | YouTube returned no matches for that query. Try another search, and run the Verify steps if every search returns nothing. |
+| `/search mode:YouTube` shows "YouTube lookup failed" | Lavalink could not load from YouTube. Run the Verify steps. If `youtube-plugin` is not listed, install or fix the plugin (see the rows below). If it is listed, check `docker logs LavaLink` for errors from the YouTube source, and check `Install/start.sh --logs` for `[YouTube]` lines. |
+| `/search mode:YouTube` finds nothing | YouTube returned no matches for that query. Try another search, and run the Verify steps if every search returns nothing. |
 | Error says YouTube wants you to sign in to confirm you're not a bot | YouTube flagged the requests. Turn on OAuth with a burner account. Follow [Set up OAuth step by step](#set-up-oauth-step-by-step). |
 | Search and links work, but tracks fail to play. The logs show `Suspicious: (yts.version: 1.18.2) All clients failed to load the item` or `Loading formats either failed to load or were skipped due to missing fields` | YouTube is refusing the stream requests from this server. This happens to some videos and can start after many requests in a short time. Wait before retrying. If it continues, turn on OAuth with a burner account. The bot posts a notice with a link to [Set up OAuth step by step](#set-up-oauth-step-by-step). |
 | The log warns `OAuth has been enabled without registering any OAuth-compatible clients` | TV is the only client that uses OAuth. Add `TV` to the `clients` list, and move it to the top when OAuth is on. See [Set up OAuth step by step](#set-up-oauth-step-by-step), step 3. |
-| Sign-in code expired. The log shows `OAUTH INTEGRATION: The device token has expired. OAuth integration has been canceled.` | The code expires after a few minutes. Run `docker restart LavaLink` to get a new code, then enter it at https://www.google.com/device. |
+| Sign-in code expired. The log shows `OAUTH INTEGRATION: The device token has expired. OAuth integration has been canceled.` | Codes expire. Run `docker restart LavaLink` to get a new code, then enter it at https://www.google.com/device. |
 | The log shows `OAUTH INTEGRATION: Account linking was denied. OAuth integration has been canceled.` | Start again. Run `docker restart LavaLink` to get a new code, sign in with the burner account, and approve the request. |
 | `/v4/info` does not list `youtube-plugin` | Lavalink did not load the plugin. Check that the extension folder is in `Extensions/` and does not end in `.disabled`. Run `Install/start.sh --build`. Check that `Install/Docker/lavalink.application.yml` lists the `youtube-plugin` dependency. Check `docker logs LavaLink` for download errors, because the container needs internet access at startup. |
 | The built-in YouTube source is still enabled | In `Install/Docker/lavalink.application.yml`, `lavalink.server.sources.youtube` must be `false`. If it is `true`, the config was not regenerated. Run `Install/start.sh --build`. |
