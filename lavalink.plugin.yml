@@ -1,29 +1,39 @@
-# Lavalink plugin fragment for YouTube Music Provider extension.
-# Automatically merged into lavalink.application.yml by generate-lavalink-config.sh.
+# Lavalink fragment for the YouTube Music Provider extension.
+# Install/Docker/generate-lavalink-config.sh merges it into lavalink.application.yml:
+#   plugin        -> appended to lavalink.plugins[]
+#   pluginConfig  -> merged under the top-level plugins: key
+#   sources       -> merged into lavalink.server.sources
+# After editing, run Install/start.sh --build. Only --build recreates the Lavalink container.
+# The README explains each option, the install and verify steps, and optional OAuth.
 
-# Plugin Maven dependency (appended to lavalink.plugins[] array)
+# Plugin dependency. The version is pinned here; see the README "Updating" section.
 plugin:
-  dependency: "dev.lavalink.youtube:youtube-plugin:1.18.0"
+  dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
   snapshot: false
 
-# Plugin configuration (deep-merged under top-level 'plugins' key)
+# Plugin settings. The README "Configuration" section explains each option.
 pluginConfig:
   youtube:
     enabled: true
     allowSearch: true
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
+    # Clients are queried in this order. Keep the list unless you know why you are changing it.
     clients:
       - TVHTML5_SIMPLY
       - MUSIC
       - ANDROID_VR
       - WEB
       - WEBEMBEDDED
+    # OAuth is off by default. With enabled: true and no refresh token, Lavalink starts a Google
+    # sign-in on every boot, and YouTube can terminate the account used. Read the README
+    # "Optional OAuth" section, and use a burner account, before you turn it on.
     oauth:
-      enabled: true
+      enabled: false
+      # Paste a refresh token here to skip the sign-in flow. It works like a password: never commit it.
       refreshToken: ""
 
-# Source overrides (merged into lavalink.server.sources)
-# Disable built-in YouTube source — the plugin replaces it
+# Turns off Lavalink's built-in YouTube source, which failed on our test node (Lavalink 4.2.2).
+# This overrides youtube: true in lavalink.base.yml.
 sources:
   youtube: false
