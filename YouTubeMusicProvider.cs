@@ -22,8 +22,12 @@ public class YouTubeMusicProvider(IAudioService audioService) : IMusicProvider
     public MusicProviderCapabilities Capabilities =>
         MusicProviderCapabilities.Search | MusicProviderCapabilities.UrlPlayback;
 
+    private const string OAuthSetupUrl =
+        "https://github.com/kalebbroo/PlexBot-YouTube-MusicProvider#set-up-oauth-step-by-step";
+
     private const string LookupFailedMessage =
-        "YouTube lookup failed. Check that youtube-plugin is loaded on Lavalink (see the extension README).";
+        "YouTube lookup failed. Check that youtube-plugin is loaded on Lavalink. If it is, and searches keep failing, " +
+        "see [Set up OAuth step by step](" + OAuthSetupUrl + ").";
 
     private const string PluginName = "youtube-plugin";
     private const int PluginCheckAttempts = 5;
@@ -154,20 +158,19 @@ public class YouTubeMusicProvider(IAudioService audioService) : IMusicProvider
     public Task<Playlist?> GetPlaylistDetailsAsync(string playlistKey, CancellationToken ct = default) =>
         Task.FromResult<Playlist?>(null);
 
-    /// <summary>Explains a YouTube stream that YouTube refused, with a link to the OAuth setup steps. Other failures get
-    /// no explanation, so the bot only logs them.</summary>
+    /// <summary>Explains a track that no YouTube client could play, with a link to the OAuth setup steps. youtube-source
+    /// reports that as "All clients failed", which also covers removed or restricted videos, so the text stays neutral.
+    /// Other failures get no explanation, so the bot only logs them.</summary>
     public string? DescribePlaybackFailure(Track track, string? errorMessage)
     {
-        if (string.IsNullOrEmpty(errorMessage))
+        if (string.IsNullOrEmpty(errorMessage) ||
+            !errorMessage.Contains("All clients failed", StringComparison.OrdinalIgnoreCase))
             return null;
 
-        bool refusedByYouTube = errorMessage.Contains("Suspicious", StringComparison.OrdinalIgnoreCase)
-            || errorMessage.Contains("All clients failed", StringComparison.OrdinalIgnoreCase)
-            || errorMessage.Contains("sign in", StringComparison.OrdinalIgnoreCase);
-        return refusedByYouTube
-            ? "YouTube refused this stream from the server. Turn on OAuth with a burner account to fix it: " +
-              "[How to set up YouTube with OAuth](https://github.com/kalebbroo/PlexBot-YouTube-MusicProvider#set-up-oauth-step-by-step)."
-            : null;
+        return "YouTube could not play this track from the server. Some videos cannot play at all, such as removed, " +
+               "members-only or age-restricted ones. If many YouTube tracks fail, OAuth with a burner account can help: " +
+               "[How to set up YouTube with OAuth](" + OAuthSetupUrl + "). If OAuth is already set up, see " +
+               "[step 8](https://github.com/kalebbroo/PlexBot-YouTube-MusicProvider#8-if-it-stops-working).";
     }
 
     /// <summary>Creates a normalized Track model from a Lavalink track</summary>
