@@ -192,8 +192,15 @@ public class YouTubeMusicProvider(IAudioService audioService) : IMusicProvider
     {
         try
         {
-            // Same names and defaults as Main/ServiceRegistration.cs, so the check reaches the node the bot uses.
-            string password = EnvConfig.Get("LAVALINK_SERVER_PASSWORD", "youshallnotpass");
+            // Same names as Main/ServiceRegistration.cs, so the check reaches the node the bot uses.
+            // The password is read from the environment only and never built in.
+            string password = EnvConfig.Get("LAVALINK_SERVER_PASSWORD");
+            if (string.IsNullOrEmpty(password))
+            {
+                Logs.Info("[YouTube] LAVALINK_SERVER_PASSWORD is not set, so the youtube-plugin check was skipped");
+                return;
+            }
+
             string host = EnvConfig.Get("LAVALINK_HOST", "lavalink");
             string port = EnvConfig.Get("LAVALINK_SERVER_PORT", "2333");
             string scheme = EnvConfig.GetBool("LAVALINK_SECURE", false) ? "https" : "http";
